@@ -31,7 +31,8 @@
 *.tsbuildinfo
 next-env.d.ts
 
-# claude skills (dependências externas — instalar via git clone, ver .claude/docs/)
+# claude (configurações locais não devem ser versionadas)
+.claude/settings.local.json
 .claude/skills/
 
 # system

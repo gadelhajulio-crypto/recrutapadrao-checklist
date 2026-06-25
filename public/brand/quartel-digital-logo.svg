@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Quartel Digital Logo</title>
+  <desc id="desc">A target circle with four markers and a green check mark.</desc>
+
+  <!-- Transparent background -->
+
+  <!-- Target circle -->
+  <circle
+    cx="256"
+    cy="256"
+    r="154"
+    fill="none"
+    stroke="#FFFFFF"
+    stroke-width="18"
+    stroke-linecap="round"/>
+
+  <!-- Target markers -->
+  <rect x="246" y="54" width="20" height="74" rx="3" fill="#FFFFFF"/>
+  <rect x="246" y="384" width="20" height="74" rx="3" fill="#FFFFFF"/>
+  <rect x="54" y="246" width="74" height="20" rx="3" fill="#FFFFFF"/>
+  <rect x="384" y="246" width="74" height="20" rx="3" fill="#FFFFFF"/>
+
+  <!-- Check mark -->
+  <path
+    d="M177 263 L235 321 L354 202"
+    fill="none"
+    stroke="#8A9B23"
+    stroke-width="31"
+    stroke-linecap="round"
+    stroke-linejoin="round"/>
+</svg>

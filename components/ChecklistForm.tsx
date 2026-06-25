@@ -31,21 +31,6 @@ const INITIAL_FORM: FormFields = {
 
 const FORCAS = ['Marinha', 'Exército', 'Aeronáutica']
 
-const ETAPAS = [
-  'Vou me alistar',
-  'Já fui selecionado',
-  'Já tenho data para incorporar',
-  'Já estou servindo',
-  'Sou familiar de um recruta',
-]
-
-const ORIGENS = ['WhatsApp', 'Instagram', 'TikTok', 'YouTube', 'Amigo', 'Instrutor', 'Outro']
-
-const ESTADOS_BR = [
-  'AC','AL','AM','AP','BA','CE','DF','ES','GO','MA','MG','MS','MT',
-  'PA','PB','PE','PI','PR','RJ','RN','RO','RR','RS','SC','SE','SP','TO',
-]
-
 // ─── Validation ─────────────────────────────────────────────────────────────
 
 function validate(form: FormFields): FieldErrors {
@@ -60,14 +45,6 @@ function validate(form: FormFields): FieldErrors {
     errors.whatsapp = 'WhatsApp é obrigatório'
   } else if (digits.length < 10 || digits.length > 11) {
     errors.whatsapp = 'Número inválido — informe DDD + número'
-  }
-
-  if (!form.forca_interesse) {
-    errors.forca_interesse = 'Selecione uma opção'
-  }
-
-  if (!form.etapa_atual) {
-    errors.etapa_atual = 'Selecione uma opção'
   }
 
   return errors
@@ -114,7 +91,6 @@ export default function ChecklistForm() {
     const fieldErrors = validate(form)
     if (Object.keys(fieldErrors).length > 0) {
       setErrors(fieldErrors)
-      // Scroll to first error
       const firstErrorField = Object.keys(fieldErrors)[0]
       document.getElementById(firstErrorField)?.focus()
       return
@@ -122,7 +98,6 @@ export default function ChecklistForm() {
 
     setSubmitting(true)
 
-    // ── Payload ──────────────────────────────────────────────────────────
     const payload = {
       ...form,
       ...getUtms(),
@@ -136,7 +111,7 @@ export default function ChecklistForm() {
     // await saveLead(payload)
     console.log('[Quartel Digital] lead:', payload)
 
-    trackEvent('lead_completed', { forca: form.forca_interesse, etapa: form.etapa_atual })
+    trackEvent('lead_completed', { forca: form.forca_interesse })
 
     setSubmitted(true)
     setSubmitting(false)
@@ -207,94 +182,20 @@ export default function ChecklistForm() {
         {errors.whatsapp && <span className="error-msg">{errors.whatsapp}</span>}
       </div>
 
-      {/* Força */}
+      {/* Força — opcional */}
       <div className="field">
-        <label htmlFor="forca_interesse">Força de interesse</label>
+        <label htmlFor="forca_interesse">
+          Força de interesse <span className="label-optional">(opcional)</span>
+        </label>
         <select
           id="forca_interesse"
           name="forca_interesse"
           value={form.forca_interesse}
           onChange={handleChange}
-          className={errors.forca_interesse ? 'has-error' : ''}
         >
           <option value="">Selecione</option>
           {FORCAS.map((f) => (
             <option key={f} value={f}>{f}</option>
-          ))}
-        </select>
-        {errors.forca_interesse && <span className="error-msg">{errors.forca_interesse}</span>}
-      </div>
-
-      {/* Etapa atual */}
-      <div className="field">
-        <label htmlFor="etapa_atual">Etapa atual</label>
-        <select
-          id="etapa_atual"
-          name="etapa_atual"
-          value={form.etapa_atual}
-          onChange={handleChange}
-          className={errors.etapa_atual ? 'has-error' : ''}
-        >
-          <option value="">Selecione</option>
-          {ETAPAS.map((e) => (
-            <option key={e} value={e}>{e}</option>
-          ))}
-        </select>
-        {errors.etapa_atual && <span className="error-msg">{errors.etapa_atual}</span>}
-      </div>
-
-      {/* Divider — opcionais */}
-      <hr className="form-divider" />
-      <p className="form-divider-label">Opcionais</p>
-
-      {/* Cidade */}
-      <div className="field">
-        <label htmlFor="cidade">
-          Cidade <span className="label-optional">(opcional)</span>
-        </label>
-        <input
-          id="cidade"
-          name="cidade"
-          type="text"
-          autoComplete="address-level2"
-          value={form.cidade}
-          onChange={handleChange}
-          placeholder="Sua cidade"
-        />
-      </div>
-
-      {/* Estado */}
-      <div className="field">
-        <label htmlFor="estado">
-          Estado <span className="label-optional">(opcional)</span>
-        </label>
-        <select
-          id="estado"
-          name="estado"
-          value={form.estado}
-          onChange={handleChange}
-        >
-          <option value="">Selecione</option>
-          {ESTADOS_BR.map((uf) => (
-            <option key={uf} value={uf}>{uf}</option>
-          ))}
-        </select>
-      </div>
-
-      {/* Origem */}
-      <div className="field">
-        <label htmlFor="origem">
-          Como conheceu o material? <span className="label-optional">(opcional)</span>
-        </label>
-        <select
-          id="origem"
-          name="origem"
-          value={form.origem}
-          onChange={handleChange}
-        >
-          <option value="">Selecione</option>
-          {ORIGENS.map((o) => (
-            <option key={o} value={o}>{o}</option>
           ))}
         </select>
       </div>
