@@ -3,12 +3,18 @@ import Script from 'next/script'
 import './globals.css'
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://quarteldigital.com.br'),
   title: {
     default: 'Quartel Digital',
     template: '%s | Quartel Digital',
   },
   description: 'Materiais para futuros recrutas das Forças Armadas do Brasil.',
   robots: { index: true, follow: true },
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+  },
 }
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID

@@ -185,7 +185,7 @@ export default function ChecklistForm() {
       {/* Força — opcional */}
       <div className="field">
         <label htmlFor="forca_interesse">
-          Força de interesse <span className="label-optional">(opcional)</span>
+          Força de interesse
         </label>
         <select
           id="forca_interesse"
@@ -202,7 +202,7 @@ export default function ChecklistForm() {
 
       {/* Submit */}
       <button type="submit" className="btn-submit" disabled={submitting}>
-        {submitting ? 'Enviando...' : 'Quero receber o Checklist'}
+        {submitting ? 'Enviando...' : 'Quero receber o Checklist agora'}
       </button>
     </form>
   )

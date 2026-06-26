@@ -76,9 +76,6 @@ a {
 }
 
 /* ─── Logo wrapper ───────────────────────── */
-/* A logo tem fundo transparente e traços brancos.
-   O wrapper .logo-wrap--dark fornece o círculo azul
-   necessário para exibição sobre fundos claros. */
 .logo-wrap {
   display: inline-flex;
   align-items: center;
@@ -109,8 +106,67 @@ a {
 
 /* ─── Hero ───────────────────────────────── */
 .hero {
-  padding: 28px 0 18px;
+  padding: 20px 0 8px;
   text-align: center;
+}
+
+/* Container largo para o grid de duas colunas */
+.hero-outer {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Mobile: coluna única empilhada */
+.hero-grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-content {
+  text-align: center;
+}
+
+/* Imagem institucional — placeholder para futura foto real */
+.hero-image-col {
+  margin-top: 14px;
+}
+
+.hero-img-placeholder {
+  width: 100%;
+  aspect-ratio: 16 / 8;
+  background: var(--primary-light);
+  border: 1px solid var(--primary-border);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-institutional-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+}
+
+.hero-img-placeholder-text {
+  font-size: 11px;
+  color: var(--primary-border);
+  font-style: italic;
+  letter-spacing: 0.3px;
+}
+
+/* CTA desktop — oculto no mobile */
+.cta-hero-desktop {
+  display: none;
+}
+
+/* CTA mobile — aparece após a imagem */
+.hero-cta-mobile-wrap {
+  text-align: center;
+  padding-top: 18px;
 }
 
 .hero-eyebrow {
@@ -153,7 +209,7 @@ a {
   color: #888;
   font-style: italic;
   max-width: 380px;
-  margin: 0 auto 18px;
+  margin: 0 auto 16px;
   line-height: 1.5;
 }
 
@@ -169,7 +225,6 @@ a {
   border-radius: var(--radius);
   letter-spacing: 0.2px;
   transition: background 0.15s;
-  margin-bottom: 32px;
   cursor: pointer;
 }
 
@@ -182,19 +237,19 @@ a {
 .pdf-mockup-wrap {
   display: flex;
   justify-content: center;
-  /* espaço para a sombra e inclinação não serem cortados */
-  padding: 8px 36px 24px;
+  padding: 20px 36px 16px;
 }
 
 .pdf-mockup {
   display: inline-flex;
   flex-direction: column;
-  width: min(252px, 80vw);
+  width: min(352px, 85vw);
   border: 1.5px solid var(--primary-border);
   border-radius: 8px;
   overflow: hidden;
   box-shadow:
-    6px 12px 32px rgba(26, 46, 90, 0.22),
+    10px 22px 52px rgba(26, 46, 90, 0.28),
+    4px 8px 22px rgba(26, 46, 90, 0.16),
     0 2px 6px rgba(26, 46, 90, 0.10);
   text-align: left;
   transform: rotate(3.5deg);
@@ -204,13 +259,14 @@ a {
 .pdf-mockup:hover {
   transform: rotate(1.5deg) scale(1.02);
   box-shadow:
-    8px 16px 40px rgba(26, 46, 90, 0.28),
+    14px 28px 64px rgba(26, 46, 90, 0.32),
+    6px 12px 28px rgba(26, 46, 90, 0.18),
     0 3px 8px rgba(26, 46, 90, 0.12);
 }
 
 .pdf-mockup-header {
   background: var(--primary);
-  padding: 10px 14px;
+  padding: 12px 16px;
 }
 
 .pdf-mockup-logo-row {
@@ -229,11 +285,11 @@ a {
 
 .pdf-mockup-body {
   background: #fff;
-  padding: 16px;
+  padding: 18px 20px;
 }
 
 .pdf-mockup-title {
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 800;
   color: var(--primary);
   line-height: 1.3;
@@ -241,21 +297,21 @@ a {
 }
 
 .pdf-mockup-sub {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-muted);
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .pdf-mockup-lines {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  margin-bottom: 12px;
+  gap: 7px;
+  margin-bottom: 14px;
 }
 
 .pdf-mockup-lines span {
   display: block;
-  height: 6px;
+  height: 7px;
   background: var(--primary-light);
   border-radius: 3px;
 }
@@ -297,7 +353,7 @@ a {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .what-you-get-item {
@@ -306,51 +362,24 @@ a {
   line-height: 1.4;
 }
 
-/* ─── Imagem institucional ───────────────── */
-/*
-  Componente isolado para fácil substituição por imagem real.
-  Ver comentário em page.tsx para instruções de substituição.
-*/
-.image-section {
-  margin: 22px 0 0;
-  overflow: hidden;
-}
-
-.image-placeholder {
-  width: 100%;
-  aspect-ratio: 16 / 5;
-  background: var(--primary-light);
-  border-top: 1px solid var(--primary-border);
-  border-bottom: 1px solid var(--primary-border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.image-placeholder-text {
-  font-size: 11px;
-  color: var(--primary-border);
-  font-style: italic;
-  letter-spacing: 0.3px;
-}
-
-.institutional-img {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
-  aspect-ratio: 16 / 5;
-}
-
 /* ─── Benefícios ─────────────────────────── */
 .benefits {
-  padding: 22px 0 20px;
+  padding: 16px 0 12px;
+}
+
+.benefits-heading {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--primary);
+  text-align: center;
+  margin-bottom: 14px;
+  line-height: 1.35;
 }
 
 .benefit-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  gap: 12px;
 }
 
 @media (max-width: 400px) {
@@ -381,7 +410,7 @@ a {
 
 /* ─── Credibilidade ──────────────────────── */
 .credibility {
-  padding: 0 0 18px;
+  padding: 0 0 12px;
   text-align: center;
 }
 
@@ -413,11 +442,40 @@ a {
   font-style: italic;
 }
 
+/* ─── Prova Social ───────────────────────── */
+.social-proof-section {
+  padding: 0 0 16px;
+}
+
+.social-proof {
+  padding: 16px 18px 14px;
+  border-left: 3px solid var(--primary-border);
+  background: var(--bg-section);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.social-proof-quote {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.65;
+  font-style: italic;
+  margin-bottom: 8px;
+}
+
+.social-proof-quote::before { content: '\201C'; }
+.social-proof-quote::after  { content: '\201D'; }
+
+.social-proof-author {
+  font-size: 12px;
+  color: #888;
+  font-weight: 500;
+}
+
 /* ─── Form section ───────────────────────── */
 .form-section {
   background: var(--bg-section);
   border-top: 1px solid var(--border);
-  padding: 26px 0 40px;
+  padding: 20px 0 32px;
 }
 
 .form-title {
@@ -626,8 +684,31 @@ a {
   color: #bbb;
   font-style: italic;
   max-width: 320px;
-  margin: 0 auto;
+  margin: 0 auto 12px;
   line-height: 1.5;
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.footer-links a {
+  font-size: 11px;
+  color: #999;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.footer-links a:hover {
+  color: var(--primary);
+}
+
+.footer-links-sep {
+  font-size: 10px;
+  color: #ccc;
 }
 
 /* ─── Responsividade ─────────────────────── */
@@ -635,7 +716,7 @@ a {
 /* 320px — dispositivos muito pequenos */
 @media (max-width: 340px) {
   .pdf-mockup {
-    width: min(218px, 88vw);
+    width: min(290px, 88vw);
   }
 
   .hero h1 {
@@ -663,35 +744,68 @@ a {
   }
 
   .hero {
-    padding: 36px 0 24px;
+    padding: 28px 0 10px;
   }
 
   .pdf-mockup {
-    width: 264px;
-  }
-
-  .image-placeholder {
-    aspect-ratio: 16 / 4;
+    width: 352px;
   }
 }
 
-/* 1024px — desktop */
+/* 1024px — desktop: ativa o layout de duas colunas */
 @media (min-width: 1024px) {
   .container {
     max-width: 620px;
   }
 
   .hero {
-    padding: 48px 0 32px;
+    padding: 36px 0 14px;
+    text-align: left;
   }
 
-  .pdf-mockup {
-    width: 276px;
+  /* Grid duas colunas: 60% texto | 40% imagem */
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 6fr 4fr;
+    gap: 48px;
+    align-items: center;
   }
 
-  .image-placeholder {
-    aspect-ratio: 16 / 4;
-    max-width: 900px;
+  .hero-content {
+    text-align: left;
+  }
+
+  .hero .subtitle {
+    margin-left: 0;
+    max-width: none;
+  }
+
+  .authority-line {
+    margin-left: 0;
+    max-width: none;
+  }
+
+  .hero-image-col {
+    align-self: stretch;
+    margin-top: 0;
+  }
+
+  .hero-img-placeholder {
+    aspect-ratio: auto;
+    height: 100%;
+    min-height: 280px;
+    border-radius: 8px;
+  }
+
+  /* CTA desktop ativado */
+  .cta-hero-desktop {
+    display: inline-block;
+    margin-top: 20px;
+  }
+
+  /* CTA mobile oculto */
+  .hero-cta-mobile-wrap {
+    display: none;
   }
 }
 
@@ -702,7 +816,11 @@ a {
   }
 
   .hero {
-    padding: 56px 0 36px;
+    padding: 44px 0 16px;
+  }
+
+  .hero-outer {
+    max-width: 1100px;
   }
 }
 

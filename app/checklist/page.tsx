@@ -2,14 +2,15 @@ import type { Metadata } from 'next'
 import ChecklistForm from '@/components/ChecklistForm'
 
 export const metadata: Metadata = {
-  title: 'Checklist do Internato — Marinha do Brasil',
+  title: { absolute: 'Checklist do Internato | Quartel Digital' },
   description:
-    'Baixe gratuitamente o Checklist do Internato da Marinha do Brasil e receba materiais para futuros recrutas.',
+    'Baixe gratuitamente o Checklist do Internato da Marinha do Brasil e descubra o que realmente levar, quais erros evitar e como chegar mais preparado ao primeiro dia.',
   openGraph: {
-    title: 'Checklist do Internato — Marinha do Brasil | Quartel Digital',
+    title: 'Checklist do Internato | Quartel Digital',
     description:
-      'Baixe gratuitamente o Checklist do Internato da Marinha do Brasil e receba materiais para futuros recrutas.',
+      'Baixe gratuitamente o Checklist do Internato da Marinha do Brasil e descubra o que realmente levar, quais erros evitar e como chegar mais preparado ao primeiro dia.',
     type: 'website',
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Checklist do Internato — Quartel Digital' }],
   },
 }
 
@@ -38,29 +39,66 @@ export default function ChecklistPage() {
       <main>
         {/* ── Hero ──────────────────────────────────────────────────────── */}
         <section className="hero">
+          <div className="hero-outer">
+            <div className="hero-grid">
+
+              {/* Esquerda — texto */}
+              <div className="hero-content">
+                <p className="hero-eyebrow">Checklist Gratuito &middot; Marinha do Brasil</p>
+
+                <h1>
+                  Vai incorporar na Marinha?<br />
+                  <span className="hero-h1-accent">Não chegue despreparado.</span>
+                </h1>
+
+                <p className="subtitle">
+                  Receba gratuitamente o Checklist do Internato e descubra o que levar,
+                  o que evitar e quais erros muitos recrutas só percebem depois que chegam ao quartel.
+                </p>
+
+                <p className="authority-line">
+                  Material desenvolvido a partir de dezenas de relatos reais de ex-recrutas
+                  e mais de 40 fontes públicas pesquisadas.
+                </p>
+
+                {/* CTA visível apenas no desktop (≥1024px) */}
+                <a href="#form-section" className="cta-hero-btn cta-hero-desktop">
+                  Quero receber o Checklist agora
+                </a>
+              </div>
+
+              {/* Direita — imagem institucional (~40% do hero no desktop) */}
+              {/*
+                SUBSTITUIR ANTES DO DEPLOY:
+                Trocar o placeholder pelo componente abaixo com a imagem real.
+                Sugestão: recrutas da Marinha em formação — acervo público das Forças Armadas.
+                <img
+                  src="/images/recrutas-formacao.jpg"
+                  alt="Recrutas da Marinha do Brasil em formação"
+                  className="hero-institutional-img"
+                  loading="eager"
+                  decoding="async"
+                />
+              */}
+              <div className="hero-image-col" aria-hidden="true">
+                <div className="hero-img-placeholder">
+                  <span className="hero-img-placeholder-text">
+                    [ Foto — recrutas em formação ]
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* CTA visível apenas no mobile (após a imagem) */}
+            <div className="hero-cta-mobile-wrap">
+              <a href="#form-section" className="cta-hero-btn">
+                Quero receber o Checklist agora
+              </a>
+            </div>
+          </div>
+
+          {/* Mockup do PDF */}
           <div className="container">
-            <p className="hero-eyebrow">Checklist Gratuito &middot; Marinha do Brasil</p>
-
-            <h1>
-              Vai incorporar na Marinha?<br />
-              <span className="hero-h1-accent">Não chegue despreparado.</span>
-            </h1>
-
-            <p className="subtitle">
-              Receba gratuitamente o Checklist do Internato e descubra o que levar,
-              o que evitar e quais erros muitos recrutas só percebem depois que chegam ao quartel.
-            </p>
-
-            <p className="authority-line">
-              Material desenvolvido a partir de dezenas de relatos reais de ex-recrutas
-              e mais de 40 fontes públicas pesquisadas.
-            </p>
-
-            <a href="#form-section" className="cta-hero-btn">
-              Quero receber gratuitamente
-            </a>
-
-            {/* Mockup do PDF */}
             <div className="pdf-mockup-wrap">
               <div className="pdf-mockup" aria-hidden="true">
                 <div className="pdf-mockup-header">
@@ -111,32 +149,10 @@ export default function ChecklistPage() {
           </div>
         </section>
 
-        {/*
-          ── Imagem institucional ────────────────────────────────────────
-          SUBSTITUIR ANTES DO DEPLOY:
-          Trocar o placeholder abaixo por uma imagem real.
-          Sugestão: recrutas da Marinha em formação, treinamento militar,
-          militares marchando — do acervo público das Forças Armadas.
-          Exemplo de uso quando a imagem estiver disponível:
-            <img
-              src="/images/recrutas-formacao.jpg"
-              alt="Recrutas da Marinha do Brasil em formação"
-              className="institutional-img"
-              loading="lazy"
-              decoding="async"
-            />
-        */}
-        <section className="image-section" aria-hidden="true">
-          <div className="image-placeholder">
-            <span className="image-placeholder-text">
-              [ Imagem institucional — recrutas em formação ]
-            </span>
-          </div>
-        </section>
-
         {/* ── Benefícios ────────────────────────────────────────────────── */}
         <section className="benefits">
           <div className="container">
+            <p className="benefits-heading">O que você vai descobrir em menos de 5 minutos</p>
             <div className="benefit-grid">
               <div className="benefit-card">
                 <span className="benefit-icon">&#127890;</span>
@@ -172,6 +188,18 @@ export default function ChecklistPage() {
           </div>
         </section>
 
+        {/* ── Prova Social ──────────────────────────────────────────────── */}
+        <section className="social-proof-section" aria-label="Relato de ex-recruta">
+          <div className="container">
+            <figure className="social-proof">
+              <blockquote className="social-proof-quote">
+                Se eu soubesse disso antes de incorporar, teria evitado vários erros logo na primeira semana.
+              </blockquote>
+              <figcaption className="social-proof-author">— Relato de ex-recruta da Marinha</figcaption>
+            </figure>
+          </div>
+        </section>
+
         {/* ── Formulário ────────────────────────────────────────────────── */}
         <section className="form-section" id="form-section">
           <div className="container">
@@ -201,6 +229,11 @@ export default function ChecklistPage() {
         <p className="footer-legal">
           Não substitui orientações oficiais das Forças Armadas do Brasil.
         </p>
+        <div className="footer-links">
+          <a href="/privacidade">Política de Privacidade</a>
+          <span className="footer-links-sep" aria-hidden="true">&middot;</span>
+          <a href="/termos">Termos de Uso</a>
+        </div>
       </footer>
     </>
   )
