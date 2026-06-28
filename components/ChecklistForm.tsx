@@ -203,6 +203,10 @@ export default function ChecklistForm() {
       <button type="submit" className="btn-submit" disabled={submitting}>
         {submitting ? 'Enviando...' : 'Quero receber o Checklist agora'}
       </button>
+
+      <p className="form-privacy">
+        Seus dados serão usados apenas para enviar o Checklist e orientações sobre o Quartel Digital. Não enviamos spam.
+      </p>
     </form>
   )
 }
