@@ -2,11 +2,11 @@ import type { Metadata } from 'next'
 import ChecklistForm from '@/components/ChecklistForm'
 
 export const metadata: Metadata = {
-  title: { absolute: 'Checklist do Internato | Quartel Digital' },
+  title: { absolute: 'Checklist do Internato Marinha do Brasil | Quartel Digital' },
   description:
     'Baixe gratuitamente o Checklist do Internato da Marinha do Brasil e descubra o que realmente levar, quais erros evitar e como chegar mais preparado ao primeiro dia.',
   openGraph: {
-    title: 'Checklist do Internato | Quartel Digital',
+    title: 'Checklist do Internato Marinha do Brasil | Quartel Digital',
     description:
       'Baixe gratuitamente o Checklist do Internato da Marinha do Brasil e descubra o que realmente levar, quais erros evitar e como chegar mais preparado ao primeiro dia.',
     type: 'website',
