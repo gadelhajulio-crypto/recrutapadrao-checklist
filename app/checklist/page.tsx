@@ -199,7 +199,7 @@ export default function ChecklistPage() {
         {/* ── Formulário ────────────────────────────────────────────────── */}
         <section className="form-section" id="form-section">
           <div className="container">
-            <p className="form-title">Preencha para receber o material</p>
+            <p className="form-title">Onde enviamos o seu Checklist?</p>
             <ChecklistForm />
           </div>
         </section>
