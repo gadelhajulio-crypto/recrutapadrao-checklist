@@ -102,13 +102,18 @@ export default function ChecklistForm() {
       ...form,
       ...getUtms(),
       user_agent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
-      timestamp: new Date().toISOString(),
-      url: typeof window !== 'undefined' ? window.location.href : '',
+      origem: typeof window !== 'undefined' ? window.location.href : '',
     }
 
-    // TODO: Supabase — quando integrado, chamar saveLead(payload) aqui
-    // import { saveLead } from '@/lib/supabase'
-    // await saveLead(payload)
+    try {
+      await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+    } catch {
+      // Falha silenciosa — usuário vê tela de sucesso independente
+    }
 
     trackEvent('lead_completed', { forca: form.forca_interesse })
 
