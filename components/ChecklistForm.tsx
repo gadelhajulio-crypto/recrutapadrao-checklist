@@ -109,7 +109,6 @@ export default function ChecklistForm() {
     // TODO: Supabase — quando integrado, chamar saveLead(payload) aqui
     // import { saveLead } from '@/lib/supabase'
     // await saveLead(payload)
-    console.log('[Quartel Digital] lead:', payload)
 
     trackEvent('lead_completed', { forca: form.forca_interesse })
 
