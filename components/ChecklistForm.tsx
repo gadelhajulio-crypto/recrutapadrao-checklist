@@ -207,6 +207,10 @@ export default function ChecklistForm() {
       <p className="form-privacy">
         Seus dados serão usados apenas para enviar o Checklist e orientações sobre o Quartel Digital. Não enviamos spam.
       </p>
+
+      <p className="form-privacy">
+        Desenvolvido por quem viveu o internato como recruta e retornou anos depois à Marinha como Oficial Médico.
+      </p>
     </form>
   )
 }
