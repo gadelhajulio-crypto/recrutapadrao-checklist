@@ -129,8 +129,8 @@ export default function ChecklistForm() {
     return (
       <div className="success-box">
         <div className="success-icon">&#10003;</div>
-        <h2>Cadastro realizado com sucesso.</h2>
-        <p>Clique abaixo para entrar em contato e receber o material.</p>
+        <h2>Pronto! Seu Checklist está a caminho.</h2>
+        <p>Clique no botão abaixo para abrir o WhatsApp e concluir o recebimento do seu material.</p>
         <a
           href={waUrl}
           target="_blank"
@@ -138,7 +138,7 @@ export default function ChecklistForm() {
           className="btn-whatsapp"
           onClick={handleWaClick}
         >
-          Entrar no WhatsApp
+          Receber pelo WhatsApp
         </a>
       </div>
     )
