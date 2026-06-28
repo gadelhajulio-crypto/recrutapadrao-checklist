@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
       {
         source: '/',
         destination: '/checklist',
-        permanent: false,
+        permanent: true,
       },
     ]
   },
