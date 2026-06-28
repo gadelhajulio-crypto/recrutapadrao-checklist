@@ -135,12 +135,8 @@ a {
 .hero-img-placeholder {
   width: 100%;
   aspect-ratio: 16 / 8;
-  background: var(--primary-light);
-  border: 1px solid var(--primary-border);
+  background: linear-gradient(160deg, var(--primary) 0%, var(--primary-dark) 100%);
   border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .hero-institutional-img {
@@ -149,13 +145,6 @@ a {
   object-fit: cover;
   border-radius: 8px;
   display: block;
-}
-
-.hero-img-placeholder-text {
-  font-size: 11px;
-  color: var(--primary-border);
-  font-style: italic;
-  letter-spacing: 0.3px;
 }
 
 /* CTA desktop — oculto no mobile */

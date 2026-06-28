@@ -81,11 +81,7 @@ export default function ChecklistPage() {
                 />
               */}
               <div className="hero-image-col" aria-hidden="true">
-                <div className="hero-img-placeholder">
-                  <span className="hero-img-placeholder-text">
-                    [ Foto — recrutas em formação ]
-                  </span>
-                </div>
+                <div className="hero-img-placeholder" />
               </div>
             </div>
 
