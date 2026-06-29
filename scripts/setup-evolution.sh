@@ -12,7 +12,7 @@
 set -euo pipefail
 
 EVOLUTION_URL="${EVOLUTION_API_URL:-http://127.0.0.1:8080}"
-API_KEY="${EVOLUTION_API_KEY:-Joaofilho462973@}"
+API_KEY="${EVOLUTION_API_KEY:?Erro: EVOLUTION_API_KEY não configurada no .env.local}"
 INSTANCE_NAME="${EVOLUTION_INSTANCE_NAME:-quartel-digital}"
 SITE_URL="${NEXT_PUBLIC_SITE_URL:-https://checklist.recrutapadrao.com.br}"
 WEBHOOK_URL="${SITE_URL}/api/webhooks/whatsapp"
