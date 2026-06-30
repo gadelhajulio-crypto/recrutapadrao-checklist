@@ -127,24 +127,18 @@ a {
   text-align: center;
 }
 
-/* Imagem institucional — placeholder para futura foto real */
+/* Imagem institucional */
 .hero-image-col {
+  position: relative;
   margin-top: 14px;
-}
-
-.hero-img-placeholder {
-  width: 100%;
-  aspect-ratio: 16 / 8;
-  background: linear-gradient(160deg, var(--primary) 0%, var(--primary-dark) 100%);
+  aspect-ratio: 4 / 3;
   border-radius: 8px;
+  overflow: hidden;
 }
 
 .hero-institutional-img {
-  width: 100%;
-  height: 100%;
   object-fit: cover;
   border-radius: 8px;
-  display: block;
 }
 
 /* CTA desktop — oculto no mobile */
@@ -784,14 +778,9 @@ a {
 
   .hero-image-col {
     align-self: stretch;
-    margin-top: 0;
-  }
-
-  .hero-img-placeholder {
     aspect-ratio: auto;
-    height: 100%;
+    margin-top: 0;
     min-height: 280px;
-    border-radius: 8px;
   }
 
   /* CTA desktop ativado */

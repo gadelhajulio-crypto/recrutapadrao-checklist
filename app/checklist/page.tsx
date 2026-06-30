@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import ChecklistForm from '@/components/ChecklistForm'
 
 export const metadata: Metadata = {
@@ -68,20 +69,15 @@ export default function ChecklistPage() {
               </div>
 
               {/* Direita — imagem institucional (~40% do hero no desktop) */}
-              {/*
-                SUBSTITUIR ANTES DO DEPLOY:
-                Trocar o placeholder pelo componente abaixo com a imagem real.
-                Sugestão: recrutas da Marinha em formação — acervo público das Forças Armadas.
-                <img
-                  src="/images/recrutas-formacao.jpg"
-                  alt="Recrutas da Marinha do Brasil em formação"
+              <div className="hero-image-col">
+                <Image
+                  src="/images/formacao_naval.png"
+                  alt="Recrutas da Marinha do Brasil em formação naval"
                   className="hero-institutional-img"
-                  loading="eager"
-                  decoding="async"
+                  fill
+                  priority
+                  sizes="(max-width: 1023px) 100vw, 45vw"
                 />
-              */}
-              <div className="hero-image-col" aria-hidden="true">
-                <div className="hero-img-placeholder" />
               </div>
             </div>
 
