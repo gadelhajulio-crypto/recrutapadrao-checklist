@@ -75,8 +75,7 @@ function getClient(): SupabaseClient | null {
 export async function saveLead(data: LeadData): Promise<{ id: string; created_at: string }> {
   const client = getClient()
   if (!client) {
-    console.warn('[supabase] credenciais não configuradas — lead não salvo')
-    return
+    throw new Error('CHECKLIST_PERSISTENCE_UNAVAILABLE')
   }
   const { error } = await client.from('leads_checklist').insert(data)
   if (error) throw error
