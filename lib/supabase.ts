@@ -6,23 +6,28 @@
 //
 // Schema da tabela (SQL Editor do Supabase):
 //   create table leads_checklist (
-//     id           uuid primary key default gen_random_uuid(),
-//     created_at   timestamptz default now(),
-//     nome         text not null,
-//     whatsapp     text not null,
-//     forca        text,
-//     etapa_atual  text,
-//     cidade       text,
-//     estado       text,
-//     origem       text,
-//     ip           text,
-//     user_agent   text,
-//     utm_source   text,
-//     utm_medium   text,
-//     utm_campaign text
+//     id                    uuid primary key default gen_random_uuid(),
+//     created_at            timestamptz default now(),
+//     nome                  text not null,
+//     whatsapp              text not null,
+//     forca                 text,
+//     etapa_atual           text,
+//     cidade                text,
+//     estado                text,
+//     origem                text,
+//     ip                    text,
+//     user_agent            text,
+//     utm_source            text,
+//     utm_medium            text,
+//     utm_campaign          text,
+//     checklist_token       uuid unique,
+//     checklist_accessed_at timestamptz,
+//     checklist_access_count integer not null default 0,
+//     last_accessed_at      timestamptz
 //   );
 //   alter table leads_checklist enable row level security;
 //   create policy "insert_only" on leads_checklist for insert with check (true);
+//   -- Ver scripts/migrate-add-checklist-token.sql para adicionar colunas de token.
 
 import { createClient, SupabaseClient } from '@supabase/supabase-js'
 
@@ -39,6 +44,19 @@ export type LeadData = {
   utm_source?: string | null
   utm_medium?: string | null
   utm_campaign?: string | null
+  checklist_token?: string | null
+  whatsapp_opt_in?: boolean
+  whatsapp_opt_in_at?: string | null
+  whatsapp_opt_in_text?: string | null
+  whatsapp_opt_in_source?: string | null
+}
+
+export type LeadRow = {
+  id: string
+  nome: string
+  whatsapp: string
+  checklist_accessed_at: string | null
+  checklist_access_count: number
 }
 
 let _client: SupabaseClient | null = null
@@ -52,12 +70,49 @@ function getClient(): SupabaseClient | null {
   return _client
 }
 
-export async function saveLead(data: LeadData): Promise<void> {
+export async function saveLead(data: LeadData): Promise<{ id: string; created_at: string }> {
   const client = getClient()
   if (!client) {
-    console.warn('[supabase] credenciais não configuradas — lead não salvo')
-    return
+    throw new Error('CHECKLIST_PERSISTENCE_UNAVAILABLE')
   }
-  const { error } = await client.from('leads_checklist').insert(data)
+  const { data: persisted, error } = await client
+    .from('leads_checklist')
+    .insert(data)
+    .select('id, created_at')
+    .single()
   if (error) throw error
+  if (!persisted?.id || !persisted?.created_at) {
+    throw new Error('CHECKLIST_PERSISTENCE_UNCONFIRMED')
+  }
+  return persisted as { id: string; created_at: string }
+}
+
+export async function getLeadByToken(token: string): Promise<LeadRow | null> {
+  const client = getClient()
+  if (!client) return null
+  const { data, error } = await client
+    .from('leads_checklist')
+    .select('id, nome, whatsapp, checklist_accessed_at, checklist_access_count')
+    .eq('checklist_token', token)
+    .single()
+  if (error || !data) return null
+  return data as LeadRow
+}
+
+export async function recordChecklistAccess(token: string): Promise<void> {
+  const client = getClient()
+  if (!client) return
+  const { data } = await client
+    .from('leads_checklist')
+    .select('checklist_accessed_at, checklist_access_count')
+    .eq('checklist_token', token)
+    .single()
+  await client
+    .from('leads_checklist')
+    .update({
+      checklist_accessed_at: data?.checklist_accessed_at ?? new Date().toISOString(),
+      checklist_access_count: (data?.checklist_access_count ?? 0) + 1,
+      last_accessed_at: new Date().toISOString(),
+    })
+    .eq('checklist_token', token)
 }
