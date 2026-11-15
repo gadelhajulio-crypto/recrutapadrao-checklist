@@ -66,10 +66,8 @@ export async function POST(req: NextRequest) {
       null
 
     const checklistToken = crypto.randomUUID()
-    console.log('[FUNIL] checklist_token gerado:', checklistToken)
 
     const checklistAccessUrl = `${SITE_URL}/checklist/acesso?token=${checklistToken}`
-    console.log('[FUNIL] checklistAccessUrl:', checklistAccessUrl)
     resp.checklistAccessUrl = checklistAccessUrl
 
     const lead = {
@@ -137,12 +135,10 @@ export async function POST(req: NextRequest) {
 
     // ── Envio 1: boas-vindas ───────────────────────────────────────────────
     try {
-      console.log('[FUNIL] iniciando envio boas-vindas para', phone)
       const resTexto = await sendTextMessage(
         phone,
         `Olá, ${firstName}! Aqui é o Quartel Digital.\n\nSeu Checklist do Internato está chegando agora. 👇`,
       )
-      console.log('[FUNIL] resposta envio boas-vindas:', JSON.stringify(resTexto ?? 'ok'))
       resp.welcomeSent = true
     } catch (err: unknown) {
       const e = err as { message?: string; status?: number; data?: unknown }
@@ -157,12 +153,10 @@ export async function POST(req: NextRequest) {
 
     // ── Envio 2: link do checklist ─────────────────────────────────────────
     try {
-      console.log('[FUNIL] iniciando envio link checklist para', phone)
       const resLink = await sendTextMessage(
         phone,
         `Seu Checklist do Internato está pronto. ✅\n\nToque no link abaixo para abrir no navegador:\n\n${checklistAccessUrl}\n\nDentro do checklist há um botão para enviar o link oficial a um amigo que também vai servir.`,
       )
-      console.log('[FUNIL] resposta envio link checklist:', JSON.stringify(resLink ?? 'ok'))
       resp.checklistLinkSent = true
     } catch (err: unknown) {
       const e = err as { message?: string; status?: number; data?: unknown }
@@ -176,11 +170,10 @@ export async function POST(req: NextRequest) {
     }
 
     if (N8N_WEBHOOK) {
-      fetch(N8N_WEBHOOK, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(lead),
-      }).catch((err) => console.error('[leads] n8n webhook:', err))
+      }).catch(() => console.error('[leads] n8n webhook failed'))
     }
 
     resp.ok = true
