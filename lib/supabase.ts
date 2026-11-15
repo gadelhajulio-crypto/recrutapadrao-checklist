@@ -1,5 +1,3 @@
-[Reading 111 lines from start (total: 111 lines, 0 remaining)]
-
 // lib/supabase.ts — servidor apenas (não expor ao browser)
 //
 // Variáveis de ambiente necessárias (em .env.local):
@@ -77,8 +75,16 @@ export async function saveLead(data: LeadData): Promise<{ id: string; created_at
   if (!client) {
     throw new Error('CHECKLIST_PERSISTENCE_UNAVAILABLE')
   }
-  const { error } = await client.from('leads_checklist').insert(data)
+  const { data: persisted, error } = await client
+    .from('leads_checklist')
+    .insert(data)
+    .select('id, created_at')
+    .single()
   if (error) throw error
+  if (!persisted?.id || !persisted?.created_at) {
+    throw new Error('CHECKLIST_PERSISTENCE_UNCONFIRMED')
+  }
+  return persisted as { id: string; created_at: string }
 }
 
 export async function getLeadByToken(token: string): Promise<LeadRow | null> {
