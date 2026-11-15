@@ -68,8 +68,6 @@ export async function POST(req: NextRequest) {
     const checklistToken = crypto.randomUUID()
 
     const checklistAccessUrl = `${SITE_URL}/checklist/acesso?token=${checklistToken}`
-    resp.checklistAccessUrl = checklistAccessUrl
-
     const lead = {
       nome: String(nome).trim(),
       whatsapp: digits,
@@ -141,13 +139,12 @@ export async function POST(req: NextRequest) {
       )
       resp.welcomeSent = true
     } catch (err: unknown) {
-      const e = err as { message?: string; status?: number; data?: unknown }
-      console.error('[FUNIL] erro envio WhatsApp status:', e?.status ?? 'N/A')
-      console.log('[FUNIL] retornando ok false — boas-vindas falhou')
+      const status = (err as { status?: number })?.status
+      console.error('[FUNIL] erro envio WhatsApp status:', status ?? 'N/A')
       return NextResponse.json({
         ...resp,
         error: 'WHATSAPP_SEND_FAILED',
-        details: { step: 'welcome', status: e?.status, message: e?.message },
+        details: { step: 'welcome' },
       })
     }
 
@@ -159,21 +156,23 @@ export async function POST(req: NextRequest) {
       )
       resp.checklistLinkSent = true
     } catch (err: unknown) {
-      const e = err as { message?: string; status?: number; data?: unknown }
-      console.error('[FUNIL] erro envio WhatsApp status:', e?.status ?? 'N/A')
-      console.log('[FUNIL] retornando ok false — link checklist falhou')
+      const status = (err as { status?: number })?.status
+      console.error('[FUNIL] erro envio WhatsApp status:', status ?? 'N/A')
       return NextResponse.json({
         ...resp,
         error: 'WHATSAPP_SEND_FAILED',
-        details: { step: 'checklist_link', status: e?.status, message: e?.message },
+        details: { step: 'checklist_link' },
       })
     }
 
     if (N8N_WEBHOOK) {
+      void fetch(N8N_WEBHOOK, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(lead),
-      }).catch(() => console.error('[leads] n8n webhook failed'))
+      }).catch(() => {
+        console.error('[leads] n8n webhook failed')
+      })
     }
 
     resp.ok = true
